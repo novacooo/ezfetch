@@ -1,11 +1,11 @@
 type ObjectValues<T extends object> = T[keyof T];
 
 export const HttpMethod = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  PATCH: 'PATCH',
-  DELETE: 'DELETE'
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  PATCH: "PATCH",
+  DELETE: "DELETE",
 } as const;
 
 export type HttpMethodValue = ObjectValues<typeof HttpMethod>;
@@ -14,12 +14,12 @@ export type EzFetchResponse = {
   ok: boolean;
   url: string;
   method: HttpMethodValue;
-}
+};
 
 type EzFetchInput = {
   url: string;
   method: HttpMethodValue;
-}
+};
 
 class EzFetch<T extends Partial<EzFetchInput>> {
   readonly #actual: T;
@@ -28,7 +28,7 @@ class EzFetch<T extends Partial<EzFetchInput>> {
     this.#actual = actual;
   }
 
-  static create(url: string = '') {
+  static create(url: string = "") {
     return new EzFetch({ url });
   }
 
@@ -36,11 +36,11 @@ class EzFetch<T extends Partial<EzFetchInput>> {
     return new EzFetch({ ...this.#actual, method });
   }
 
-  get(url: string = '') {
+  get(url: string = "") {
     return new EzFetch({
       ...this.#actual,
       method: HttpMethod.GET,
-      url: this.#actual.url ? `${this.#actual.url}${url}` : url
+      url: this.#actual.url ? `${this.#actual.url}${url}` : url,
     });
   }
 
@@ -49,7 +49,7 @@ class EzFetch<T extends Partial<EzFetchInput>> {
       ok: true,
       url: this.#actual.url,
       method: this.#actual.method,
-    }
+    };
   }
 }
 
