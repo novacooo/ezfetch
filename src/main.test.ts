@@ -1,5 +1,6 @@
 import { assertEquals, assertExists } from "@std/assert";
 import ezfetch, { HttpMethod } from "./main.ts";
+import { assertObjectMatch } from "@std/assert/object-match";
 
 Deno.test("ezfetch.create should initialize instance with correct url", () => {
   // Arrange & Act
@@ -75,4 +76,28 @@ Deno.test("ezfetch should support all HTTP methods", () => {
   assertEquals(putInstance.send().ok, true);
   assertEquals(patchInstance.send().ok, true);
   assertEquals(deleteInstance.send().ok, true);
+});
+
+type PlaceholderData = {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+Deno.test("ezfetch.json should return expected response", async () => {
+  const expectedData: PlaceholderData = {
+    userId: 1,
+    id: 1,
+    title: "delectus aut autem",
+    completed: false,
+  };
+
+  const response = await ezfetch.create(
+    "https://jsonplaceholder.typicode.com/todos/1",
+  )
+    .get()
+    .json<PlaceholderData>();
+
+  assertObjectMatch(expectedData, response);
 });
