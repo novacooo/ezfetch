@@ -1,7 +1,7 @@
 import { assertEquals, assertExists } from "@std/assert";
 import ezfetch, { HttpMethod } from "./main.ts";
 
-Deno.test("ezfetch.create should initialize instance with correct baseUrl", () => {
+Deno.test("ezfetch.create should initialize instance with correct url", () => {
   // Arrange & Act
   const instance = ezfetch.create("https://example.com");
   
@@ -21,6 +21,24 @@ Deno.test("ezfetch.setMethod should set HTTP method and return new instance", ()
   // Verify immutability - should return new instance
   assertEquals(instance !== instanceWithMethod, true);
 });
+
+
+Deno.test("ezfetch.get should set HTTP method and extend url", () => {
+  // Arrange
+  const baseUrl = "https://example.com";
+  const instance = ezfetch.create(baseUrl);
+
+  // Act
+  const baseUrlResponse = instance.get().send();
+  const endpointResponse = instance.get('/endpoint').send();
+
+  // Assert
+  assertEquals(baseUrlResponse.method, HttpMethod.GET);
+  assertEquals(endpointResponse.method, HttpMethod.GET);
+  assertEquals(baseUrlResponse.url, baseUrl);
+  assertEquals(endpointResponse.url, `${baseUrl}/endpoint`);
+});
+
 
 Deno.test("ezfetch.send should return expected response", () => {
   // Arrange
