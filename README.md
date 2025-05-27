@@ -17,3 +17,17 @@
 ## 🚀 Quick Start
 
 > 🛠️ Coming soon...
+
+## 🧐 Example usage
+
+```typescript
+import { ezfetch } from "@novacooo/ezfetch";
+
+const api = ezfetch.create("https://example.com");
+
+const products = await api.get("/products")
+  .query({ limit: 10, offset: 0 })
+  .json<{ id: number; name: string }[]>();
+
+console.log(products); // [{ id: 1, name: 'product' }]
+```
