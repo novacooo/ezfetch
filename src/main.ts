@@ -12,31 +12,43 @@ export type HttpMethodValue = ObjectValues<typeof HttpMethod>;
 
 export type EzFetchResponse = {
   ok: boolean;
+  url: string;
+  method: HttpMethodValue;
 }
 
 type EzFetchInput = {
-  baseUrl: string;
+  url: string;
   method: HttpMethodValue;
 }
 
 class EzFetch<T extends Partial<EzFetchInput>> {
-  #actual: T;
+  readonly #actual: T;
 
   private constructor(actual: T) {
     this.#actual = actual;
   }
 
-  static create(baseUrl: string) {
-    return new EzFetch({ baseUrl });
+  static create(url: string = '') {
+    return new EzFetch({ url });
   }
 
   setMethod(method: HttpMethodValue) {
     return new EzFetch({ ...this.#actual, method });
   }
 
+  get(url: string = '') {
+    return new EzFetch({
+      ...this.#actual,
+      method: HttpMethod.GET,
+      url: this.#actual.url ? `${this.#actual.url}${url}` : url
+    });
+  }
+
   send(this: EzFetch<EzFetchInput>): EzFetchResponse {
     return {
       ok: true,
+      url: this.#actual.url,
+      method: this.#actual.method,
     }
   }
 }
