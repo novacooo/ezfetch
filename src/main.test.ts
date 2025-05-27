@@ -1,5 +1,5 @@
 import { assertEquals, assertExists } from "@std/assert";
-import { ezfetch, HttpMethod } from "./main.ts";
+import { ezfetch, HttpMethod } from "./index.ts";
 import { assertObjectMatch } from "@std/assert/object-match";
 
 Deno.test("ezfetch should initialize instance with correct url", () => {

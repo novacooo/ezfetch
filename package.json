@@ -1,0 +1,30 @@
+{
+  "name": "ezfetch",
+  "version": "0.1.0",
+  "description": "ezfetch is a lightweight, chainable wrapper around the native `Fetch API`. Built with the builder pattern for clean, readable requests in Node.js and browser apps.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "rimraf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novacooo/ezfetch.git"
+  },
+  "keywords": [],
+  "author": "Jacek Nowak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/novacooo/ezfetch/issues"
+  },
+  "homepage": "https://github.com/novacooo/ezfetch#readme",
+  "devDependencies": {
+    "@types/node": "^22.15.23",
+    "nodemon": "^3.1.10",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  }
+}
